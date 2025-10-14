@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  raglite:
+    build: .
+    container_name: raglite-sample-app
+    environment:
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      RAGLITE_DB_PATH: ${RAGLITE_DB_PATH:-duckdb:////app/data/raglite.duckdb}
+      RAGLITE_LLM: ${RAGLITE_LLM:-claude-3-5-haiku-latest}
+      RAGLITE_EMBEDDER: ${RAGLITE_EMBEDDER:-text-embedding-3-small}
+    volumes:
+      - ./data:/app/data
+    command: ["python", "app/main.py"]
